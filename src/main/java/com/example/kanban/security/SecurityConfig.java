@@ -2,7 +2,6 @@ package com.example.kanban.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -20,12 +19,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/tasks/**").authenticated() // Exige autenticação para /api/tasks/**
-                        .anyRequest().permitAll() // Permite acesso a outras requisições
+                        .requestMatchers("/api/tasks/**").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login") // URL da página de login personalizada
-                        .permitAll() // Permite acesso à página de login
+                        .loginPage("/login")
+                        .permitAll()
                 );
 
         return http.build();

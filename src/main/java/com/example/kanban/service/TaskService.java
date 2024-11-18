@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -29,8 +28,6 @@ public class TaskService {
     public Task updateTask(Long id, Task updatedTask) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
-
-        // Certifique-se de que os métodos correspondem aos nomes dos campos na classe Task
         task.setName(updatedTask.getName());
         task.setDescription(updatedTask.getDescription());
         task.setPriority(updatedTask.getPriority());

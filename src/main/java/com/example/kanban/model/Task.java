@@ -22,14 +22,12 @@ public class Task {
     private String description;
 
     @Column(nullable = false)
-    private Priority priority; // Certifique-se de que este campo existe
+    private Priority priority;
 
     @Column(nullable = false)
-    private Status status; // Certifique-se de que este campo existe
+    private Status status;
 
-    private LocalDateTime dueDate; // Certifique-se de que este campo existe
-
-    // Construtores, Getters e Setters
+    private LocalDateTime dueDate;
 
     public Task() {
     }
