@@ -1,11 +1,6 @@
 package com.example.kanban.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,23 +17,12 @@ public class Task {
     private String description;
 
     @Column(nullable = false)
-    private Priority priority;
+    private String priority; // "baixa", "média", "alta"
 
     @Column(nullable = false)
-    private Status status;
+    private String status; // "A Fazer", "Em Progresso", "Concluído"
 
     private LocalDateTime dueDate;
-
-    public Task() {
-    }
-
-    public Task(String name, String description, Priority priority, Status status, LocalDateTime dueDate) {
-        this.name = name;
-        this.description = description;
-        this.priority = priority;
-        this.status = status;
-        this.dueDate = dueDate;
-    }
 
     public Long getId() {
         return id;
@@ -64,19 +48,19 @@ public class Task {
         this.description = description;
     }
 
-    public Priority getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(Priority priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

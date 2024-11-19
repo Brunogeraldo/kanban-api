@@ -1,4 +1,4 @@
-package com.example.kanban.security;
+package com.example.kanban;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,13 +19,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/tasks/**").authenticated()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/api/tasks/**").authenticated() // Protege os endpoints da API
+                        .anyRequest().permitAll() // Permite acesso a outros endpoints
                 )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .permitAll()
-                );
+                .httpBasic() // Habilita autenticação básica
+                .and()
+                .csrf().disable(); // Desabilita CSRF para simplificar a configuração (cuidado em produção)
 
         return http.build();
     }
@@ -33,15 +32,16 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        // Cria um usuário em memória com nome de usuário "user" e senha "password"
         manager.createUser (User.withUsername("user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER")
+                .password(passwordEncoder().encode("password")) // A senha é codificada
+                .roles("USER") // Atribui a role "USER"
                 .build());
         return manager;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); // Usado para codificar senhas
     }
 }
